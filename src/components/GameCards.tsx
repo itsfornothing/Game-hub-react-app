@@ -5,7 +5,6 @@ import CriticScore from "./CriticScore";
 import getCroppedImgUrl from "@/services/image-url";
 
 interface Props {
-  // Capitalized 'Props'
   game: Game;
 }
 

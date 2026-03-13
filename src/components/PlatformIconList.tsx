@@ -1,4 +1,3 @@
-import { type Platform } from "../hooks/useGames.ts";
 import { HStack, Icon } from "@chakra-ui/react";
 import {
   FaPlaystation,
@@ -12,7 +11,7 @@ import { MdPhoneIphone } from "react-icons/md";
 import { FaGamepad } from "react-icons/fa";
 import { BsGlobe } from "react-icons/bs";
 import type { IconType } from "react-icons/lib";
-
+import type { Platform } from "@/hooks/usePlatform";
 
 interface props {
   platforms: Platform[];

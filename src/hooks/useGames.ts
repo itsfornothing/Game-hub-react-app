@@ -6,6 +6,7 @@ export interface Platform {
   name: string;
   slug: string;
 }
+
 export interface Game {
   id: number;
   name: string;
@@ -14,8 +15,16 @@ export interface Game {
   metacritic: number;
 }
 
-
-
-const useGames = (selectedGenre: Genre|null) => useData<Game>('/games', {params:{genres: selectedGenre?.id}}, [selectedGenre?.id]);
+const useGames = (
+  selectedGenre: Genre | null,
+  selectedPlatform: Platform | null,
+) => {
+  // ← Add return here!
+  return useData<Game>(
+    "/games",
+    { params: { genres: selectedGenre?.id, platforms: selectedPlatform?.id } },
+    [selectedGenre?.id, selectedPlatform?.id],
+  );
+};
 
 export default useGames;

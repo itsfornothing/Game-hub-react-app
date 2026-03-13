@@ -5,7 +5,7 @@ import GameCardSkeleton from "./GameCardSkeleton.tsx";
 import GameCardConrainer from "./GameCardConrainer.tsx";
 
 const GameGrid = () => {
-  const { games, error, isLoading } = useGames();
+  const { data, error, isLoading } = useGames();
   const skeletons = [1, 2, 3, 4, 5, 6];
 
   return (
@@ -22,7 +22,7 @@ const GameGrid = () => {
               <GameCardSkeleton key={skeleton} />
             </GameCardConrainer>
           ))}
-        {games.map((game) => (
+        {data.map((game) => (
           <GameCardConrainer>
             <GameCard key={game.id} game={game} />
           </GameCardConrainer>

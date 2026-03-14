@@ -32,7 +32,6 @@ function App() {
         <NavBar />
       </GridItem>
 
-      {/* Fixed: Using 'when' or 'hideFrom' for Chakra v3 compatibility */}
       <Show when={{ base: false, lg: true }}>
         <GridItem area="aside" paddingX={5}>
           <GenreList
@@ -57,7 +56,6 @@ function App() {
             }
           />
         </Flex>
-        {/* Fixed: Passing the consolidated gameQuery object */}
         <GameGrid gameQuery={gameQuery} />
       </GridItem>
     </Grid>

@@ -1,4 +1,4 @@
-import { Grid, GridItem, Flex, Show, Box } from "@chakra-ui/react";
+import { Grid, GridItem, Flex, Box } from "@chakra-ui/react";
 import { useState } from "react";
 import GameGrid from "./components/GameGrid";
 import GenreList from "./components/GenreList";
@@ -8,6 +8,7 @@ import SortSelector from "./components/SortSelector";
 import type { Genre } from "./hooks/useGenres";
 import type { Platform } from "./hooks/usePlatform";
 import GameHeading from "./components/GameHeading";
+import MobileGenreMenu from "./components/MobileGenreMenu";
 
 export interface GameQuery {
   genre: Genre | null;
@@ -31,35 +32,43 @@ function App() {
       }}
     >
       <GridItem area="nav">
-        <NavBar onSearch={(searchText)=>setGameQuery({ ...gameQuery, searchText })}/>
+        <NavBar
+          onSearch={(searchText) => setGameQuery({ ...gameQuery, searchText })}
+        />
       </GridItem>
 
-      <Show when={{ base: false, lg: true }}>
-        <GridItem area="aside" paddingX={5}>
-          <GenreList
-            selectedGenre={gameQuery.genre}
-            onSelectGenre={(genre) => setGameQuery({ ...gameQuery, genre })}
-          />
-        </GridItem>
-      </Show>
+      <GridItem area="aside" paddingX={5} hideBelow="lg">
+        <GenreList
+          selectedGenre={gameQuery.genre}
+          onSelectGenre={(genre) => setGameQuery({ ...gameQuery, genre })}
+        />
+      </GridItem>
 
       <GridItem area="main">
-        <Box paddingLeft={2}>
-        <GameHeading gameQuery={gameQuery}/>
-        <Flex marginBottom={5} gap={3}>
-          <PlatformSelector
-            selectedPlatform={gameQuery.platform}
-            onSelectPlatform={(platform) =>
-              setGameQuery({ ...gameQuery, platform })
-            }
-          />
-          <SortSelector 
-            sortOrder={gameQuery.sortOrder}
-            onSelectSortOrder={(sortOrder) => 
-              setGameQuery({ ...gameQuery, sortOrder })
-            }
-          />
-        </Flex>
+        <Box paddingX={{ base: 2, md: 5 }}>
+          {" "}
+          <GameHeading gameQuery={gameQuery} />
+          <Flex marginBottom={5} gap={3} flexWrap="wrap">
+            {" "}
+            <Box hideFrom="lg">
+              <MobileGenreMenu
+                selectedGenre={gameQuery.genre}
+                onSelectGenre={(genre) => setGameQuery({ ...gameQuery, genre })}
+              />
+            </Box>
+            <PlatformSelector
+              selectedPlatform={gameQuery.platform}
+              onSelectPlatform={(platform) =>
+                setGameQuery({ ...gameQuery, platform })
+              }
+            />
+            <SortSelector
+              sortOrder={gameQuery.sortOrder}
+              onSelectSortOrder={(sortOrder) =>
+                setGameQuery({ ...gameQuery, sortOrder })
+              }
+            />
+          </Flex>
         </Box>
         <GameGrid gameQuery={gameQuery} />
       </GridItem>

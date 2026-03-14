@@ -6,17 +6,18 @@ import {
   FaWindows,
   FaXbox,
   FaAndroid,
+  FaGamepad,
 } from "react-icons/fa";
 import { MdPhoneIphone } from "react-icons/md";
-import { FaGamepad } from "react-icons/fa";
 import { BsGlobe } from "react-icons/bs";
 import type { IconType } from "react-icons/lib";
 import type { Platform } from "@/hooks/usePlatform";
 
-interface props {
+interface Props { // Capitalized to match standard convention
   platforms: Platform[];
 }
-const PlatformIconList = ({ platforms }: props) => {
+
+const PlatformIconList = ({ platforms }: Props) => {
   const iconMap: { [key: string]: IconType } = {
     pc: FaWindows,
     playstation: FaPlaystation,
@@ -28,11 +29,23 @@ const PlatformIconList = ({ platforms }: props) => {
     web: BsGlobe,
     android: FaAndroid,
   };
+
   return (
-    <HStack marginY={1}>
-      {platforms.map((platform) => (
-        <Icon key={platform.id} as={iconMap[platform.slug]} color="gray.500" />
-      ))}
+    <HStack marginY={1} wrap="wrap">
+      {platforms?.map((platform) => {
+        const IconComponent = iconMap[platform.slug];
+
+        // Prevents crash: Chakra v3 Icon 'as' prop cannot be undefined
+        if (!IconComponent) return null;
+
+        return (
+          <Icon 
+            key={platform.id} 
+            as={IconComponent} 
+            color="gray.500" 
+          />
+        );
+      })}
     </HStack>
   );
 };
